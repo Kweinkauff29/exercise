@@ -23,17 +23,34 @@ var newUser = mongoose.model('excersiseapp', new Schema({
 }, { collection: "excersiseapp" }, { versionKey: false } ));
 
 app.get("/", async function (req, res) {
-  console.log(req.params);
-  console.log(res.params);
+  console.log(req.body);
+  console.log(res.body);
 
   res.render('home.ejs');
 });
 
-//route that will handle returning users
-app.post('/main/:username', function(req, res) {
+const hostname = '127.0.0.1';
+const port = 3000;
+
+app.set('view engine', 'ejs');
+
+const server = http.createServer(app);
+
+app.get('/', (req, res) => {
+  res.render('home.ejs');
+});
+
+app.get('/main', (req, res) => {
+  res.render('main.ejs');
+});
+
+app.post('/', function(req, res) {
   const collection = client.db("excersiseapp").collection("excersiseapp");
 
-  let user = newUser({
+  console.log(res, "<= req");
+
+
+  let excersiseapp = newUser({
     username: req.body.name,
     password: req.body.password,
     email: req.body.email,
@@ -48,16 +65,27 @@ res.redirect('/main');
 
 });
 
-const hostname = '127.0.0.1';
-const port = 3000;
+//route that will handle returning users
+app.post('/main', function(req, res) {
+  const collection = client.db("excersiseapp").collection("excersiseapp");
 
-app.set('view engine', 'ejs');
+  console.log(collection);
 
-const server = http.createServer(app);
+  let excersiseapp = newUser({
+    username: req.body.name,
+    password: req.body.password,
+    email: req.body.email,
+    weight: req.body.Email
+  })
 
-app.get('/', (req, res) => {
-  res.render('home.ejs');
+  collection.insertOne(newUser, function(err, result) {
+    console.log("Inserted form data");
 });
+
+res.redirect('/main');
+
+});
+
 
 
 server.listen(port, hostname, () => {
