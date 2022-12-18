@@ -10,6 +10,7 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://zetterburg40:Goalie29@cluster0.xbmwh.mongodb.net/excersiseapp?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
+
 // being rendered res.render()
 app.set('views', path.join(__dirname, 'views'));
 
@@ -66,49 +67,14 @@ const message = "";
 
 app.get('/', (req, res) => {
   const message = "";
-
+  console.log(this);
   res.render('home.ejs', {message});
 
 });
 
-app.get('/main', (req, res) => {
-  res.render('main.ejs');
-});
-
-app.post('/', async function(req, res) {
-  const collection = client.db("excersiseapp").collection("excersiseapp");
-  const message = "";
-  console.log(res, "<= req");
-
-
-  let test = newUser({
-    username: req.body.name,
-    password: req.body.password,
-    email: req.body.email,
-    weight: req.body.weight
-  })
-
-  //check to see if user already Exists
-  const userCheck = await newUser.find( { username: req.body.fullname } );
-
-    if (userCheck.length > 0) {
-        console.log("User Already Exists 107");
-        const message = "Username Already Exist.";
-        const noUserMessage = "";
-        res.render('home.ejs', { message: message, name: name, notHere: noUserMessage } );
-      }
-
-      else {
-        await collection.insertOne(newUser, function(err, result) {
-          console.log("Inserted form data <= 97");
-        });
-      }
-});
-
-//route that will handle returning users
-app.post('/main', async function(req, res) {
-  const collection = client.db("excersiseapp").collection("excersiseapp1");
-
+app.get('/main/:name', async (req, res) => {
+  let name = await req.params.name;
+  console.log(name);
   //console.log(collection);
 
   let test = newUser({
@@ -118,7 +84,9 @@ app.post('/main', async function(req, res) {
     weight: req.body.weight
   })
 
-  console.log(test);
+  //var name = req.params.name;
+
+  console.log(req);
 
   const options = { wtimeout: 10000 };
 
@@ -139,8 +107,55 @@ app.post('/main', async function(req, res) {
       });
       test.save(async function() {
             console.log("user saved succesfully");
-            res.redirect('/main/:username');
-            })
+            res.render('main.ejs', {name});
+          });
+      }
+});
+
+app.post('/', async function(req, res) {
+  const collection = client.db("excersiseapp").collection("excersiseapp");
+  const message = "";
+  console.log(req, "<= req");
+});
+
+//route that will handle returning users
+app.post('/main/:name', async function(req, res) {
+  const collection = client.db("excersiseapp").collection("excersiseapp1");
+
+  //console.log(collection);
+
+  let test = newUser({
+    username: req.body.name,
+    password: req.body.password,
+    email: req.body.email,
+    weight: req.body.weight
+  })
+
+  var name = req.body.name;
+
+  console.log(req);
+
+  const options = { wtimeout: 10000 };
+
+
+  //check to see if user already Exists
+  const userCheck = await newUser.find( { username: req.body.name } );
+
+  console.log(userCheck);
+    if (userCheck.length > 0) {
+        console.log("User Already Exists");
+        const message = "Username Already Exist.";
+        res.render('home.ejs', { message: message } );
+      }
+
+      else {
+        await collection.insertOne(newUser, options, function(err, result) {
+          console.log("Inserted form data <= 132");
+      });
+      test.save(async function() {
+            console.log("user saved succesfully");
+            res.render('main.ejs', {name});
+          });
       }
 
 });
