@@ -190,21 +190,21 @@
       <h1>New to ExerTrak?</h1>
       <button type="button" class="btn btn-primary createaccbtn" name="button" onclick="showCreate()">Create Your Account</button>
       <div class="createaccount">
-        <form class="login" action="/main/:name" method="post">
+        <form class="login" id ="newuser1" method="POST">
           <label for="name">Username:</label>
-          <input type="text" id="name" name="name">
+          <input type="text" id="name2" name="name2" value="">
           <br>
           <br>
           <label for="password">Password:</label>
-          <input type="text" id="password" name="password">
+          <input type="text" id="password2" name="password2">
           <br>
           <br>
           <label for="email">Email:</label>
-          <input type="text" id="email" name="email">
+          <input type="text" id="email2" name="email2">
           <br>
           <br>
           <label for="email">Current Weight:</label>
-          <input type="text" id="weight" name="weight">
+          <input type="text" id="weight2" name="weight2" value="">
           <br>
           <br>
           <!-- A submit button -->
@@ -213,6 +213,17 @@
       </div>
       <p style="color: red; margin: 20px auto;"><%= message %></p>
     </div>
+
+    <script>
+          const newuser = document.getElementById("newuser1");
+
+          newuser.addEventListener("submit", () => {
+            const name = document.getElementById("name2").value;
+            newuser.action = `/main/${name}`;
+
+            newuser.submit();
+          });
+      </script>
 
 
     <!-- JS script to show account creation field-->

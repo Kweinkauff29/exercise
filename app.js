@@ -73,18 +73,16 @@ app.get('/', (req, res) => {
 });
 
 app.get('/main/:name', async (req, res) => {
-  let name = await req.params.name;
+  var name = req.params.name;
   console.log(name);
   //console.log(collection);
 
   let test = newUser({
-    username: req.body.name,
-    password: req.body.password,
-    email: req.body.email,
-    weight: req.body.weight
+    username: req.body.name2,
+    password: req.body.password2,
+    email: req.body.email2,
+    weight: req.body.weight2
   })
-
-  //var name = req.params.name;
 
   console.log(req);
 
@@ -120,18 +118,19 @@ app.post('/', async function(req, res) {
 
 //route that will handle returning users
 app.post('/main/:name', async function(req, res) {
+  var name = req.params.name;
+  console.log(name);
   const collection = client.db("excersiseapp").collection("excersiseapp1");
 
   //console.log(collection);
 
   let test = newUser({
-    username: req.body.name,
-    password: req.body.password,
-    email: req.body.email,
-    weight: req.body.weight
+    username: req.body.name2,
+    password: req.body.password2,
+    email: req.body.email2,
+    weight: req.body.weight2
   })
 
-  var name = req.body.name;
 
   console.log(req);
 
