@@ -91,6 +91,8 @@ app.get('/main/:name', async (req, res) => {
 
   //check to see if user already Exists
   const userCheck = await newUser.find( { username: req.body.name } );
+  console.log(userCheck, '<=usercheck')
+
 
   console.log(userCheck);
     if (userCheck.length > 0) {
@@ -139,6 +141,7 @@ app.post('/main/:name', async function(req, res) {
 
   //check to see if user already Exists
   const userCheck = await newUser.find( { username: req.body.name } );
+  console.log(userCheck, '<=usercheck')
 
   console.log(userCheck);
     if (userCheck.length > 0) {
