@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/Kweinkauff29/exercise.git"
   },
+  "scripts": {
+    "start": "node app.js"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
