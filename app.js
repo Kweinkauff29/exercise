@@ -90,7 +90,7 @@ app.get('/main/:name', async (req, res) => {
 
 
   //check to see if user already Exists
-  const userCheck = await newUser.find( { username: req.body.name } );
+  const userCheck = await newUser.find( { username: req.body.name2 } );
   console.log(userCheck, '<=usercheck')
 
 
@@ -140,7 +140,7 @@ app.post('/main/:name', async function(req, res) {
 
 
   //check to see if user already Exists
-  const userCheck = await newUser.find( { username: req.body.name } );
+  const userCheck = await newUser.find( { username: req.body.name2 } );
   console.log(userCheck, '<=usercheck')
 
   console.log(userCheck);
