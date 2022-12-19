@@ -1,3 +1,5 @@
+var port = process.env.PORT || 3000;
+
 const http = require('http');
 const ejs = require('ejs');
 const express = require('express');
@@ -55,8 +57,6 @@ app.get("/", async function (req, res) {
   res.render('home.ejs', {message});
 });
 
-const hostname = '127.0.0.1';
-const port = 3000;
 
 app.set('view engine', 'ejs');
 
@@ -164,6 +164,6 @@ app.post('/main/:name', async function(req, res) {
 
 
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://localhost:${port}/`);
-});
+var listener = app.listen(port, function () {
+    console.log('Your app is listening on port ' + listener.address().port);
+  });
