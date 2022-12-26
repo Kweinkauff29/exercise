@@ -177,18 +177,21 @@
 
     <div class="logincontainer">
       <h1>Login:</h1>
-      <form class="login" action="/" method="post">
+      <form class="login" action="/main/:name" id="returnuser" method="post">
         <label for="name">Username:</label>
         <input type="text" id="name" name="name">
         <br>
         <br>
         <label for="password">Password:</label>
-        <input type="text" id="password" name="password">
+        <input type="password" id="password" name="password" value="">
         <br>
         <br>
         <!-- A submit button -->
         <input type="submit" value="Submit">
       </form>
+
+      <p style="color: red; margin: 20px auto;"><%= noUserMessage %></p>
+      <br>
       <hr style="width: 100%; margin: 20px auto;">
       <h1>New to ExerTrak?</h1>
       <button type="button" class="btn btn-primary createaccbtn" name="button" onclick="showCreate()">Create Your Account</button>
@@ -226,6 +229,17 @@
             newuser.action = `/main/${name}`;
 
             newuser.submit();
+          });
+
+          const returnuser = document.getElementById("returnuser");
+
+          returnuser.addEventListener("submit", () => {
+            const name = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
+            document.querySelector('input[name="password"]').value = password;
+            returnuser.action = `/User-Returning/${name}`;
+
+            returnuser.submit();
           });
       </script>
 
